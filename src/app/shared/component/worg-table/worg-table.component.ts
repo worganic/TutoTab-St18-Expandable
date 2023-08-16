@@ -3,9 +3,9 @@ import { environment } from 'src/environments/environment';
 import { NgFor, NgIf, CommonModule } from '@angular/common';
 import { FormGroup, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Observable, map, of, Subject } from 'rxjs';
-import { WorgPaginationComponent } from 'src/app/shared/component/worg-pagination/worg-pagination.component';
-import { TbPipe } from 'src/app/shared/component/worg-pipes/tbPipe.pipe'
-import { ExpandableComponent } from '../worg-expandable/expandable.component';
+import { WorgPaginationComponent } from 'src/app/shared/component/worg-table/worg-pagination/worg-pagination.component';
+import { TbPipe } from 'src/app/shared/component/worg-table/worg-pipes/tbPipe.pipe'
+import { ExpandableComponent } from 'src/app/shared/component/worg-table/worg-expandable/expandable.component';
 
 
 // Interface : liste des elements d'une colonne de table :
@@ -20,6 +20,11 @@ export interface Listecolumn {
   filterSelectData: any;// Filtre : liste des données du select.
   filterSelectDefault: string;// Filtre : donnée par default.
   filterSelectVide: string;// Filtre : donnée par default si données vide.
+}
+
+export interface ModelExport {
+  element: any,
+  action: string
 }
 
 @Component({
@@ -45,8 +50,11 @@ export class WorgTableComponent implements OnInit {
   // Récupération des data :
   @Input() ELEMENT_DATA!: any[];// Données récupéré en asynchrone.
 
+  //
+  @Output() action = new EventEmitter<ModelExport>();
+
   // Appel pour récupération des data :
-  @Output() newDataEvent = new EventEmitter<string>();
+  @Output() newDataEvent = new EventEmitter<any>();
 
   // Actualisation de la zone infos.
   infoActualisation: boolean = false;
@@ -77,6 +85,7 @@ export class WorgTableComponent implements OnInit {
   paginator: boolean = false;
   infosNbElement: boolean = false;
   infosNbElementText: string = "Nombre d'élément total";
+  expandabled: boolean = false;
 
   service: any;// Service récupéré.
   Listecolumns!: Listecolumn[]; // Initialisation de la liste des filtres :
@@ -125,6 +134,8 @@ export class WorgTableComponent implements OnInit {
     }
     this.infosNbElement = option['options']['infosNbElement'];
     this.infosNbElementText = option['options']['infosNbElementText'];
+    this.expandabled = option['options']['expandabled'];
+    console.log('WorgTableComponent | ngOnInit / this.expandabled :', this.expandabled);
 
     this.service = option['service'];// Service utilisé.
     this.Listecolumns = option['listeColumns'];// Liste des colonnes.
@@ -376,4 +387,38 @@ export class WorgTableComponent implements OnInit {
       this.startTimer(this.timerSave);
     }
   }
+
+
+  /**
+   * element
+   * 
+   * @param element 
+   */
+  buttonFct(element: any){
+    const data: ModelExport = 
+      { 
+        element: element, 
+        action: "delete" 
+    };
+    console.log('WorgTableComponent | buttonFct / data :', data);  
+    this.action.emit(data);
+    this.majDonnees();
+  }
+
+  /**
+   * expandableAction
+   * 
+   * @param element 
+   */
+  expandableAction(element: any, expandable: boolean = false){
+    if(this.expandabled){
+      const expandableCol = this.tableOption[0]['options']['expandableCol'];
+      // Vérification si le expandable est lié à la colonne :
+      if(expandable || expandableCol == false){
+        element.isExpand = !element.isExpand; 
+        this.expandable(element);
+      }
+    }
+  }
+
 }

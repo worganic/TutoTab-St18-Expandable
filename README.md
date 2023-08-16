@@ -1,4 +1,4 @@
-# WorganicTabV1 / v18 : Table/Expendable
+# WorganicTabV1 / v19 : Table/Button/deleted
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.1.
 
@@ -20,74 +20,104 @@ Run `ng generate component component-name` to generate a new component. You can 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
 ## Get clone 
-> https://github.com/worganic/TutoTab-St18-create.git
+> https://github.com/worganic/TutoTab-St19-create.git
 > npm install
 > cd .\worganic-tab-v1\
 > ng serve
 
 ## Project :
-v18 - Tableau options -> Expendable
+v19 - Ajout bouton delete.
 
-    ** Exemple injection : Section exemple injected =>
-    --------------------------------------------------
-        - Création de la section injected (component):
+    - On déplace les dossiers lié à l'outil table dans le dossier worg-table
+            \src\app\shared\component\worg-table
+            \src\app\shared\component\worg-table\worg-pipes
+            \src\app\shared\component\worg-table\worg-pagination
+            \src\app\shared\component\worg-table\worg-expandable
+        On modifi les liens des impots dans :
+            \src\app\shared\component\worg-table\worg-table.component.ts
+    - On rajoute la zone bouton :
+            \src\app\shared\component\worg-table\worg-table.component.html
+        >> ...(click)="buttonFct(column)"...
+    - On ajoute les options à Users le type 'button':
+            \src\app\component\users\users.component.ts
+        >> listeColumns: any[] = [...
+          {column: 'delete', columnTitle: 'Delete', type:'button', columnHidden: false},
+    - Problème : l'expandable ce déclanche lorsqu'on clique sur le bouton.
+        On va donc déplacé l'expandable dans certaine zone.
 
-        - Ajout de la route injected
-            >> path: 'injected', :
-            \src\main.ts
-        - Ajout dans le menu :
-            \src\app\app.component.html
-
-    ** Mise en place de l'expandable pour le tableau :
-    --------------------------------------------------
-    - Mise à jour de la db.json
-
-    - Modification du tableau pour ajouter la zone expandable
-        \src\app\shared\component\worg-table\worg-table.component.html
-            Ajout de la zone expandable :
-                <tr *ngIf="element.isExpand">
-            Ajout du click pour activé l'expandable :
-                (click)="element.isExpand = !element.isExpand"
-            Ajout du nombre de colonne en tous :
-                \src\app\shared\component\worg-table\worg-table.component.ts
-                colonneCount: Number = 0;
-            Modification dans la vue :-
-                \src\app\shared\component\worg-table\worg-table.component.html
-                <td [attr.colspan]="elementTotal" >
-
-    - Ajout component WorgTableExpandableComponent
-        \src\app\shared\component\worg-table\worg-table-expandable\worg-table-expandable.component.ts 
-
-    - Ajout service ExpandableService pour intégré la liste des zone expandable :
-        \src\app\component\expandableListe.ts
-
-    - Ajout du componetn exapandable lié à Users :
-        \src\app\component\users\expanded\expanded.component.ts
-
-    - Mise en place la pause du timer si une ligne est expandable :
+    - Ajout de l'eventEmitter :
         \src\app\shared\component\worg-table\worg-table.component.ts
-        >> expandable(element: any){
-        Et changement du timer :
-            >> startTimer(time1: number = this.timeLeft) {
-            >> this.time = time1;
+            >> buttonFct(element: any){...
+        On oubli pas de créé l'interface :
+            >> export interface ModelExport {...
+    - Ajout des data (Output) dans le fichier html de base (Users) :
+        \src\app\component\users\users.component.html
+            >> (action)="action($event)"
+    - Ajout de la fct de reception des données :
+        \src\app\component\users\users.component.ts
+            >> action(data: any){...
+    - On ajoute la fct delete au service Users :
+        \src\app\shared\services\users.service.ts
+            >> delUser(element: any) {...
+    - On associe la fct à l'action (service/delete).
+        \src\app\component\users\users.component.ts
+            >> this._usersService.delUser(data['element']);
+
+        [ On test et on vérifi bien que le bouton delete supprime bien l'element dans le fichier db.json. ]
+
+    - On doit mettre à jour l'affichage sans l'element supprimé :
+            >> buttonFct(element: any){...
+                this.majDonnees();
+            }
+
+        [ Le système Expandable bloque le compteur, on doit donc résoudre le pb Expandable de suite.]
+
+    - On ajoute 2 paramètres aux options :
+        \src\app\component\users\users.component.ts
+            >> 'expandabled': false,// Expandable actif.
+            >> 'expandableCol': true,// false : exapandable si click sur la ligne // true : uniquement sur certaine colonne :  expandable: true
+    - On modifie l'emplacement du click sur les td et on l'envoi vers une fonction :
+        \src\app\shared\component\worg-table\worg-table.component.html
+            >> ...(click)="expandableAction(element, column.expandable)"...
+    - On crait une fonction pour testé les paramètres et lancé expandable si besoin :
+       \src\app\shared\component\worg-table\worg-table.component.ts
+            >> expandableAction(element: any, expandable: boolean = false){...
+    - Pour résoudre le pb Pipe avec value undefined, on rajoute un test dans :
+        \src\app\shared\component\worg-table\worg-pipes\tbPipe.pipe.ts
+            >> ...if(value != undefined)...
+
+    - Ajout du paramètre columnPriority pour les options des colonnes :
+        \src\app\component\users\users.component.ts
+            >> ...columnPriority:'5'...
+            Option de 1 à 5
+    - Ajout des css lié aux priorités :
+        \src\app\shared\component\worg-table\worg-table.component.scss
+    - Ajout des classes aux colonnes (titre/filtre/data).
+        \src\app\shared\component\worg-table\worg-table.component.html
+            >> ...{{ column?.columnPriority }}...
+
+
+## Problème à résoudre :
+    - Dans l'expandable, une donnée (bloc) peu ne pas être dispo, cela provoque une erreur console.
+    - l'expandable ce déclanche lorsqu'on clique sur le bouton.
+        On va donc déplacé l'expandable dans certaine zone.
+    
 
 ## Infos plus :
    
 ## Update
 
 ## Historique :
-Avant -> v17 - Tableau options -> Pipe
-Après -> v19 - Ajout bouton delete.
+Avant -> v18 - Tableau options -> Expendable
+Après -> v20 - Tableau -> Button -> edit
 
 ## Ressource :
-    - promise :
-    https://www.bennadel.com/blog/3835-returning-promises-from-async-await-functions-in-javascript.htm
-    - récupération de methode dynamiquament :
-    https://stackoverflow.com/questions/57086672/element-implicitly-has-an-any-type-because-expression-of-type-string-cant-b
-    - Problème d'import avec string :
-    https://github.com/webpack/webpack/issues/6680
+    - Button click :
+        https://angular.io/guide/event-binding
+    - Css hidden colonnes :
+        https://phppot.com/css/automatic-column-hiding-using-css-in-responsive-table/
 
 ## Abouts
 created by Johann Loreau
-create at 2023/07/29
+create at 2023/08/16
 Le project évolura suivant les remarques et conseils des visiteurs.

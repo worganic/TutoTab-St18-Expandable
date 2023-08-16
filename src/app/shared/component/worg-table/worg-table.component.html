@@ -17,15 +17,15 @@
         </div>
     </div>
     <form [formGroup]="form">
-        <table class="table tableCustom table-striped">
+        <table class="table tableCustom ">
             <thead class="tableTheadCustom">
                 <tr>
-                    <th class="thead-{{ column.column }}" scope="col" *ngFor="let column of findHiddenFalse(Listecolumns)">{{ column.columnTitle }}</th>
+                    <th class="thead-{{ column.column }} priority-{{ column?.columnPriority }}" scope="col" *ngFor="let column of findHiddenFalse(Listecolumns)">{{ column.columnTitle }}</th>
                 </tr>
             </thead>
             <thead class="tableFilterCustom">
                 <tr>
-                    <th scope="col" *ngFor="let column of findHiddenFalse(Listecolumns)">
+                    <th scope="col" *ngFor="let column of findHiddenFalse(Listecolumns)" class="priority-{{ column?.columnPriority }}">
                         <div *ngIf="column.filter">
                             <div *ngIf="column.filterType == 'text'">
                                 <input formControlName="{{ column.column }}" type="text"
@@ -50,17 +50,15 @@
                 <ng-container *ngFor="let element of viewData | slice
                     : (pagination.currentPage - 1) * pagination.pageSize
                     : pagination.currentPage * pagination.pageSize; let i = index; let isOdd = odd;" 
-                    (click)="element.isExpand = !element.isExpand">
-                    <tr class="tableRow" (click)="element.isExpand = !element.isExpand; expandable(element)"
-                        [ngClass]="{'trImpaire': isOdd}"
-                        >
-                        <td *ngFor="let column of findHiddenFalse(Listecolumns)" class="row-{{ column.column }}">
-                            <div
-                                [innerHTML]="element[column.column] | tbPipe:column.column:column.pipe:element | async">
-                            </div>
+                    >
+                    <tr class="tableRow" [ngClass]="{'trImpaire': isOdd}">
+                        <td *ngFor="let column of findHiddenFalse(Listecolumns)" class="row-{{ column.column }} priority-{{ column?.columnPriority }}"
+                            (click)="expandableAction(element, column.expandable)">
+                            <div *ngIf="column.type != 'button'"  [innerHTML]="element[column.column] | tbPipe:column.column:column.pipe:element | async"></div>
+                            <div *ngIf="column.type == 'button'" ><button class='btnDelete' (click)="buttonFct(element)" >{{ column.columnTitle }}</button></div>
                         </td>
                     </tr>
-                    <tr *ngIf="element.isExpand" class="tableRow" [ngClass]="{'trImpaire': isOdd}">
+                    <tr *ngIf="element.isExpand && expandabled" class="tableRow" [ngClass]="{'trImpaire': isOdd}">
                         <td [attr.colspan]="elementTotal" >
                              <app-injected  [expandableOptions]="[element, sectionName]"></app-injected>
                         </td>

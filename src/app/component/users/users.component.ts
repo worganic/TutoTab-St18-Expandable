@@ -34,33 +34,37 @@ export class UsersComponent implements OnInit {
     'paginatorMaxSize': 2,//
     'infosNbElement': true,// Affichage d'infos (nombre d'élément).
     'infosNbElementText': "Nombre d'élément total",// Affichage d'infos (nombre d'élément).
+    'expandabled': true,// Expandable actif.
+    'expandableCol': true,// false : exapandable si click sur la ligne // true : uniquement sur certaine colonne :  expandable: true
   };
 
 
   // Liste des colonnes et leur options :
   listeColumns: any[] = [
-    {column: 'id', columnTitle: 'id.', type:'number', columnHidden: false},
+    {column: 'id', columnTitle: 'id.', type:'number', columnHidden: false, expandable: true, columnPriority:'1'},
     {column: 'username', columnTitle: 'Login', type:'string', columnHidden: false,
-      filter: true, filterType: 'text'},
+      filter: true, filterType: 'text', columnPriority:'3'},
     {column: 'firstName', columnTitle: 'Prénom', type:'string', columnHidden: false,
       filter: true, filterType: 'select', 
       filterSelectData: null, 
       filterSelectDefault: 'All', 
       filterSelectVide: 'All',
-      pipe: true
+      pipe: true,
+      expandable: true, columnPriority:'2'
     },
     {column: 'lastName', columnTitle: 'Nom', type:'string', columnHidden: false,
-      filter: true, filterType: 'text'},
-    {column: 'date', columnTitle: 'Date', type:'string', columnHidden: false, pipe: true},
-    {column: 'age', columnTitle: 'Age', type:'string', columnHidden: false},
+      filter: true, filterType: 'text', columnPriority:'3'},
+    {column: 'date', columnTitle: 'Date', type:'string', columnHidden: false, pipe: true, columnPriority:'5'},
+    {column: 'age', columnTitle: 'Age', type:'string', columnHidden: false, columnPriority:'5'},
     {column: 'sexe', columnTitle: 'Sexe', type:'string', columnHidden: false,
       filter: true, filterType: 'select', 
       filterSelectData: ['All','Homme','Femme'], 
       filterSelectDefault: 'All', 
-      filterSelectVide: 'All'
+      filterSelectVide: 'All', columnPriority:'5'
     },
-    {column: 'country', columnTitle: 'Pays', type:'string', columnHidden: true},
-    {column: 'password', columnTitle: 'Mot de passe', type:'string', columnHidden: false},
+    {column: 'country', columnTitle: 'Pays', type:'string', columnHidden: true, columnPriority:'5'},
+    {column: 'password', columnTitle: 'Mot de passe', type:'string', columnHidden: false, columnPriority:'5'},
+    {column: 'delete', columnTitle: 'Delete', type:'button', columnHidden: false, columnPriority:'1'},
   ];
   
   /**
@@ -102,5 +106,18 @@ export class UsersComponent implements OnInit {
       })
     );
   }
+
+  /**
+   * action
+   * 
+   * @param data 
+   */
+  action(data: any){
+    console.log("UsersComponent / action / data :", data);
+    this._usersService.delUser(data['element']);
+
+  }
+
+
 
 }

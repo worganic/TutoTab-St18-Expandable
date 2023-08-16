@@ -23,7 +23,9 @@ export class TbPipe implements PipeTransform {
       const resA = pipeListe.PipeListe.prototype['liste']();
       const resB: any = (await resA).valueOf();
       const methode: any =  resB[section];
-      return methode['fct'](columnName, value, element);
+      var ret = false;
+      if(value != undefined)ret = methode['fct'](columnName, value, element);
+      return ret;
     } else {// Sinon on renvois la donnée pure.
       return value;
     }

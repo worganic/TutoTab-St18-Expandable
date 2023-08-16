@@ -9,21 +9,27 @@
       "age": 27,
       "password": "123",
       "sexe": "Homme",
-      "date": [{
-        "dateDeb": "2023-08-01",
-        "dateFin":  "2023-08-10"
-        }],
-      "bloc":  [{
-        "id": 1,
-        "dateDeb": "2023-08-01",
-        "dateFin":  "2023-08-10",
-        "nom": "Nom du bloc 1",
-        "class": [{
-          "id": 111,
-          "nom": "Nom class 111",
-          "quantitée": 55
-          }]
-        }]
+      "date": [
+        {
+          "dateDeb": "2023-08-01",
+          "dateFin": "2023-08-10"
+        }
+      ],
+      "bloc": [
+        {
+          "id": 1,
+          "dateDeb": "2023-08-01",
+          "dateFin": "2023-08-10",
+          "nom": "Nom du bloc 1",
+          "class": [
+            {
+              "id": 111,
+              "nom": "Nom class 111",
+              "quantitée": 55
+            }
+          ]
+        }
+      ]
     },
     {
       "id": 2,
@@ -34,21 +40,27 @@
       "password": "123",
       "age": 27,
       "sexe": "Femme",
-      "date": [{
-        "dateDeb": "2023-08-01",
-        "dateFin":  "2023-08-10"
-        }],
-        "bloc":  [{
+      "date": [
+        {
+          "dateDeb": "2023-08-01",
+          "dateFin": "2023-08-10"
+        }
+      ],
+      "bloc": [
+        {
           "id": 2,
           "dateDeb": "2023-08-01",
-          "dateFin":  "2023-08-10",
+          "dateFin": "2023-08-10",
           "nom": "Nom du bloc 2",
-          "class": [{
-            "id": 222,
-            "nom": "Nom class 222",
-            "quantitée": 10
-            }]
-          }]
+          "class": [
+            {
+              "id": 222,
+              "nom": "Nom class 222",
+              "quantitée": 10
+            }
+          ]
+        }
+      ]
     },
     {
       "id": 3,
@@ -59,21 +71,27 @@
       "password": "11",
       "age": 13,
       "sexe": "Femme",
-      "date": [{
-        "dateDeb": "2023-08-01",
-        "dateFin":  "2023-08-10"
-        }],
-          "bloc":  [{
+      "date": [
+        {
+          "dateDeb": "2023-08-01",
+          "dateFin": "2023-08-10"
+        }
+      ],
+      "bloc": [
+        {
           "id": 3,
           "dateDeb": "2023-08-01",
-        "dateFin":  "2023-08-10",
+          "dateFin": "2023-08-10",
           "nom": "Nom du bloc 3",
-          "class": [{
-            "id": 222,
-            "nom": "Nom class 333",
-            "quantitée": 0
-            }]
-          }]
+          "class": [
+            {
+              "id": 222,
+              "nom": "Nom class 333",
+              "quantitée": 0
+            }
+          ]
+        }
+      ]
     },
     {
       "username": "lolotte",
@@ -83,21 +101,27 @@
       "id": 4,
       "age": 21,
       "sexe": "Homme",
-      "date": [{
-        "dateDeb": "2023-08-01",
-        "dateFin":  "2023-08-10"
-        }],
-        "bloc":  [{
-        "id": 3,
-        "dateDeb": "2023-08-01",
-      "dateFin":  "2023-08-10",
-        "nom": "Nom du bloc 3",
-        "class": [{
-          "id": 222,
-          "nom": "Nom class 333",
-          "quantitée": 0
-          }]
-        }]
+      "date": [
+        {
+          "dateDeb": "2023-08-01",
+          "dateFin": "2023-08-10"
+        }
+      ],
+      "bloc": [
+        {
+          "id": 3,
+          "dateDeb": "2023-08-01",
+          "dateFin": "2023-08-10",
+          "nom": "Nom du bloc 3",
+          "class": [
+            {
+              "id": 222,
+              "nom": "Nom class 333",
+              "quantitée": 0
+            }
+          ]
+        }
+      ]
     },
     {
       "username": "worg",
@@ -107,21 +131,27 @@
       "id": 5,
       "age": 50,
       "sexe": "Homme",
-      "date": [{
-        "dateDeb": "2023-08-01",
-        "dateFin":  "2023-08-10"
-        }],
-        "bloc":  [{
+      "date": [
+        {
+          "dateDeb": "2023-08-01",
+          "dateFin": "2023-08-10"
+        }
+      ],
+      "bloc": [
+        {
           "id": 5,
           "dateDeb": "2023-08-01",
-          "dateFin":  "2023-08-10",
+          "dateFin": "2023-08-10",
           "nom": "Nom du bloc 5",
-          "class": [{
-            "id": 222,
-            "nom": "Nom class 555",
-            "quantitée": 555
-            }]
-        }]
+          "class": [
+            {
+              "id": 222,
+              "nom": "Nom class 555",
+              "quantitée": 555
+            }
+          ]
+        }
+      ]
     },
     {
       "username": "Obor",
@@ -133,19 +163,6 @@
       "sexe": "Femme"
     },
     {
-      "username": "Obordfg",
-      "firstName": "Cardsgdfe",
-      "lastName": "Martinez",
-      "password": "987654",
-      "id": 7,
-      "age": 27,
-      "sexe": "Femme",
-      "date": [{
-        "dateDeb": "2023-08-01",
-        "dateFin":  "2023-08-10"
-        }]
-    },
-    {
       "username": "Ogddbor",
       "firstName": "Carogdsline",
       "lastName": "Madfgfdrtinez",
@@ -153,38 +170,13 @@
       "id": 8,
       "age": 15,
       "sexe": "Femme",
-      "date": [{
-        "dateDeb": "2023-08-01",
-        "dateFin":  "2023-08-10"
-        }]
+      "date": [
+        {
+          "dateDeb": "2023-08-01",
+          "dateFin": "2023-08-10"
+        }
+      ]
     },
-    {
-      "username": "Babar",
-      "firstName": "Caroliuoyine",
-      "lastName": "Mazearzertinez",
-      "password": "987654",
-      "id": 9,
-      "age": 5,
-      "sexe": "Homme",
-      "date": [{
-        "dateDeb": "2023-08-01",
-        "dateFin":  "2023-08-10"
-        }]
-    },
-    {
-      "username": "Lox",
-      "firstName": "Paul",
-      "lastName": "Andrée",
-      "password": "987654",
-      "id": 10,
-      "age": 5,
-      "sexe": "Homme",
-      "date": [{
-        "dateDeb": "2023-08-01",
-        "dateFin":  "2023-08-10"
-        }]
-    }
-    ,
     {
       "username": "Bob",
       "firstName": "Niounouis",
@@ -193,10 +185,12 @@
       "id": 11,
       "age": 5,
       "sexe": "Femme",
-      "date": [{
-        "dateDeb": "2023-08-01",
-        "dateFin":  "2023-08-10"
-        }]
+      "date": [
+        {
+          "dateDeb": "2023-08-01",
+          "dateFin": "2023-08-10"
+        }
+      ]
     }
   ],
   "profiles": [

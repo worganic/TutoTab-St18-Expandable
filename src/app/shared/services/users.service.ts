@@ -14,12 +14,13 @@ export class UsersService {
   constructor(private _http: HttpClient) {}
 
   dataUser: Users[] | undefined ;
+  url: string = "http://localhost:3000/users";
 
   @Cacheable({ cacheBusterObserver: cacheBuster$, maxAge: 60 * 5 * 1000 })
   geUsers(): Observable<Users[]> {
     
     //console.log("UsersService | geUsers");
-    const response = this._http.get<any>('http://localhost:3000/users');
+    const response = this._http.get<any>(this.url);
     //console.log("UsersService | geUsers / response : ", response);
     return response;
   }
@@ -28,5 +29,18 @@ export class UsersService {
     //console.log("UsersService - deleteCached / Suppression du cache.");
     cacheBuster$.next();// Supprime le cache.
     return true;
+  }
+
+  /**
+   * 
+   * @param element 
+   */
+  delUser(element: any) {
+    let endPoints =  element.id;
+    const url = this.url + "/" + endPoints;
+    const response = this._http.delete(url).subscribe(data => {
+      console.log(data);
+    });
+  
   }
 }

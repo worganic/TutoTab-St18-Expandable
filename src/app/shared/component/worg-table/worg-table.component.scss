@@ -33,3 +33,58 @@
 .paginator{
   float: right;
 }
+
+.btnDelete{
+  width: 80px;
+  height: 21px;
+  border: 1px solid #ff0000!important;
+  color: #000;
+}
+
+.table .trImpaire{
+  background-color: var(--table-thead-striped-background-color);
+}
+
+
+@media screen and (max-width: 1225px) and (min-width: 1045px) {
+  .priority-5{
+    display:none;
+  }
+}
+
+@media screen and (max-width: 1045px) and (min-width: 565px) {
+  .priority-5{
+    display:none;
+  }
+  .priority-4{
+    display:none;
+  }
+}
+
+@media screen and (max-width: 565px) and (min-width: 300px) {
+  .priority-5{
+    display:none;
+  }
+  .priority-4{
+    display:none;
+  }
+  .priority-3{
+    display:none;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .priority-5{
+    display:none;
+  }
+  .priority-4{
+    display:none;
+  }
+  .priority-3{
+    display:none;
+  }
+  .priority-2{
+    display:none;
+  }
+
+}
